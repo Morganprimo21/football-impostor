@@ -1,0 +1,50 @@
+workflows:
+  ios-and-android-release:
+    name: Build iOS (TestFlight) & Android (Internal)
+    max_build_duration: 60
+    environment:
+      vars:
+        FLUTTER_CHANNEL: stable
+        FLUTTER_VERSION: latest
+    scripts:
+      - name: Set up Flutter
+        script: |
+          flutter channel $FLUTTER_CHANNEL
+          flutter upgrade
+          flutter --version
+      - name: Get dependencies
+        script: |
+          flutter pub get
+      - name: Android: build app bundle
+        script: |
+          flutter build appbundle --release
+      - name: iOS: build ipa
+        script: |
+          flutter build ipa --export-method app-store
+    artifacts:
+      - build/app/outputs/bundle/release/*.aab
+      - build/ios/ipa/*.ipa
+    publishing:
+      - google-play:
+          service_account_credentials: $GOOGLE_PLAY_SERVICE_ACCOUNT_JSON
+          track: internal
+          mapping:
+            app: build/app/outputs/bundle/release/*.aab
+      - app-store-connect:
+          api_key_path: $APP_STORE_CONNECT_API_KEY_FILE
+          api_key_id: $APP_STORE_CONNECT_KEY_ID
+          issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+          upload_options:
+            submit_for_review: false
+            notify_testers: true
+          file: build/ios/ipa/*.ipa
+
+# Notes:
+# - In CodeMagic UI set the following environment variables/secrets:
+#   - GOOGLE_PLAY_SERVICE_ACCOUNT_JSON : JSON content of Google Play service account (for uploading AAB)
+#   - APP_STORE_CONNECT_API_KEY_FILE : upload the .p8 private key file via UI and reference filename here
+#   - APP_STORE_CONNECT_KEY_ID : the Key ID from App Store Connect API key
+#   - APP_STORE_CONNECT_ISSUER_ID : the Issuer ID from App Store Connect
+# - Enable code signing for iOS in CodeMagic (upload provisioning profiles / use automatic signing).
+# - This workflow builds both Android AAB and iOS IPA and publishes them to Internal testing / TestFlight.
+

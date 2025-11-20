@@ -1,0 +1,30 @@
+name: football_impostor
+description: A Pass & Play spoken-only impostor game (offline) with Ads and IAP.
+publish_to: "none"
+version: 0.1.0
+environment:
+  sdk: ">=2.18.0 <4.0.0"
+dependencies:
+  cupertino_icons: ^1.0.5
+  flutter:
+    sdk: flutter
+  google_mobile_ads: ^6.0.0
+  in_app_purchase: ^3.0.8
+  provider: ^6.0.5
+  shared_preferences: ^2.1.1
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/players.json
+    - assets/hector_logo.png
+    - assets/hector_background.png
+    - assets/hector_icon.png
+    - assets/hector_banner.png
+
+# NOTE: Replace AdMob IDs and IAP product IDs before publishing.
+# AdMob: set your app and ad unit IDs in `lib/monetization/ads_service.dart`
+# IAP: set your product id (remove_ads) in `lib/monetization/purchase_service.dart`
+
