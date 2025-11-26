@@ -48,3 +48,25 @@ workflows:
 # - Enable code signing for iOS in CodeMagic (upload provisioning profiles / use automatic signing).
 # - This workflow builds both Android AAB and iOS IPA and publishes them to Internal testing / TestFlight.
 
+  android-local:
+    name: Build Android APK (local testing)
+    max_build_duration: 30
+    environment:
+      vars:
+        FLUTTER_CHANNEL: stable
+        FLUTTER_VERSION: latest
+    scripts:
+      - name: Set up Flutter
+        script: |
+          flutter channel $FLUTTER_CHANNEL
+          flutter upgrade
+          flutter --version
+      - name: Get dependencies
+        script: |
+          flutter pub get
+      - name: Android: build release APK
+        script: |
+          flutter build apk --release
+    artifacts:
+      - build/app/outputs/flutter-apk/*.apk
+
