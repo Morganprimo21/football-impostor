@@ -28,8 +28,6 @@ flutter:
     - assets/hector_logo.svg
     - assets/hector_background.jpg
     - assets/hector_icon.jpg
-    - assets/hector_banner.png
-    - assets/sounds/
 
 flutter_launcher_icons:
   android: true
