@@ -41,7 +41,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<!-- Ads disabled for demo; add GADApplicationIdentifier here when enabling AdMob -->
+	<!-- ✅ AdMob App ID para iOS -->
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-4240872401964160~2821276475</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>

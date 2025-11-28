@@ -13,7 +13,7 @@ class PrimaryButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20)),
       onPressed: onPressed,
-      child: Text(label, style: const TextStyle(fontSize: 16)),
+      child: Text(label, style: const TextStyle(fontSize: 14)),
     );
   }
 }

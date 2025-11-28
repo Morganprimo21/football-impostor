@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
-import 'package:provider/provider.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import '../../monetization/ads_service.dart';
+import 'package:provider/provider.dart';
 import '../../providers/premium_provider.dart';
+import '../../monetization/ads_service.dart';
 
+/// Widget que muestra un banner publicitario
+/// Se oculta automáticamente si el usuario es Premium
 class AdBannerWidget extends StatefulWidget {
   const AdBannerWidget({Key? key}) : super(key: key);
 
@@ -13,67 +14,68 @@ class AdBannerWidget extends StatefulWidget {
 }
 
 class _AdBannerWidgetState extends State<AdBannerWidget> {
-  BannerAd? _banner;
+  BannerAd? _bannerAd;
+  bool _isAdLoaded = false;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _initBanner();
+  void initState() {
+    super.initState();
+    _loadAd();
   }
 
-  void _initBanner() {
-    final isPremium = Provider.of<PremiumProvider>(context).isPremium;
-    final bool isMobile = !kIsWeb &&
-        (defaultTargetPlatform == TargetPlatform.android ||
-            defaultTargetPlatform == TargetPlatform.iOS);
-    if (isPremium || !isMobile) return;
-    try {
-      _banner?.dispose();
-      _banner = BannerAd(
-        size: AdSize.banner,
-        adUnitId: AdsService.bannerAdUnitId,
-        request: const AdRequest(),
-        listener: BannerAdListener(
-          onAdLoaded: (ad) {
-            if (mounted) setState(() {});
-          },
-          onAdFailedToLoad: (ad, error) {
-            ad.dispose();
-            debugPrint('Ad failed to load: $error');
-            if (mounted) setState(() => _banner = null);
-          },
-        ),
-      );
-      _banner?.load();
-    } catch (e) {
-      debugPrint('Error cargando anuncios: $e');
+  void _loadAd() {
+    final premiumProvider = Provider.of<PremiumProvider>(context, listen: false);
+    
+    // No cargar anuncios si el usuario es premium
+    if (premiumProvider.isPremium) {
+      return;
     }
+
+    _bannerAd = AdsService().createBannerAdUnit();
+    _bannerAd!.load().then((_) {
+      if (mounted) {
+        setState(() {
+          _isAdLoaded = true;
+        });
+      }
+    });
   }
 
   @override
   void dispose() {
-    _banner?.dispose();
-    _banner = null;
+    _bannerAd?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final isPremium = Provider.of<PremiumProvider>(context).isPremium;
-    if (isPremium) return const SizedBox.shrink();
-    if (_banner == null) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Image.asset('assets/hector_banner.png',
-            fit: BoxFit.contain,
-            height: 50,
-            errorBuilder: (_, __, ___) => const SizedBox.shrink()),
+    final premiumProvider = Provider.of<PremiumProvider>(context);
+
+    // No mostrar nada si el usuario es premium
+    if (premiumProvider.isPremium) {
+      return const SizedBox.shrink();
+    }
+
+    // No mostrar nada si el anuncio no está cargado
+    if (!_isAdLoaded || _bannerAd == null) {
+      return const SizedBox(
+        height: 50,
+        child: Center(
+          child: SizedBox(
+            width: 20,
+            height: 20,
+            child: CircularProgressIndicator(strokeWidth: 2),
+          ),
+        ),
       );
     }
-    return SizedBox(
-      width: _banner!.size.width.toDouble(),
-      height: _banner!.size.height.toDouble(),
-      child: AdWidget(ad: _banner!),
+
+    return Container(
+      width: _bannerAd!.size.width.toDouble(),
+      height: _bannerAd!.size.height.toDouble(),
+      color: Colors.black,
+      child: AdWidget(ad: _bannerAd!),
     );
   }
 }
+

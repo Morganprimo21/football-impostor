@@ -1,0 +1,20 @@
+# PASO 1: Crear Keystore (Solo primera vez)
+keytool -genkey -v -keystore c:\Users\morga\upload-keystore.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+
+# Te preguntará:
+# - Contraseña (anótala en lugar seguro)
+# - Tu nombre
+# - Nombre de la organización
+# - Ciudad, Estado, Código país
+
+# PASO 2: Editar android/key.properties
+# Pon la contraseña que usaste arriba
+
+# PASO 3: Generar AAB para Google Play
+flutter build appbundle --release
+
+# El archivo estará en:
+# build\app\outputs\bundle\release\app-release.aab
+
+
+

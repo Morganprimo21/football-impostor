@@ -22,10 +22,32 @@ class AdsService {
   static const String testAppOpenAdUnitId =
       'ca-app-pub-3940256099942544/3419835294';
 
-  // Use test IDs by default for development. Replace with real IDs before release.
-  static const String bannerAdUnitId = testBannerAdUnitId;
-  static const String interstitialAdUnitId = testInterstitialAdUnitId;
-  static const String appOpenAdUnitId = testAppOpenAdUnitId;
+  // ✅ IDs REALES DE PRODUCCIÓN - Football Impostor
+  
+  // Android IDs
+  static const String androidBannerAdUnitId = 'ca-app-pub-4240872401964160/5387837867';
+  static const String androidInterstitialAdUnitId = 'ca-app-pub-4240872401964160/2548269140';
+  
+  // iOS IDs
+  static const String iosBannerAdUnitId = 'ca-app-pub-4240872401964160/2469212243';
+  static const String iosInterstitialAdUnitId = 'ca-app-pub-4240872401964160/1429245701'; // ✅ Intersticial iOS
+  
+  // Getters que detectan la plataforma
+  static String get bannerAdUnitId {
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      return iosBannerAdUnitId;
+    }
+    return androidBannerAdUnitId;
+  }
+  
+  static String get interstitialAdUnitId {
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      return iosInterstitialAdUnitId;
+    }
+    return androidInterstitialAdUnitId;
+  }
+  
+  static const String appOpenAdUnitId = testAppOpenAdUnitId; // No usado por ahora
 
   BannerAd? _bannerAd;
   InterstitialAd? _interstitialAd;

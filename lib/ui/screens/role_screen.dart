@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import '../../providers/game_provider.dart';
 import '../../ui/widgets/double_tap_detector.dart';
@@ -15,7 +16,7 @@ class RoleScreen extends StatelessWidget {
     final role = gp.roles[name];
     final secret = gp.assignedPlayers[name];
     return Scaffold(
-      appBar: AppBar(title: const Text('Tu turno')),
+      appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
       body: Container(
         decoration: const BoxDecoration(),
         padding: const EdgeInsets.all(16),
@@ -48,9 +49,9 @@ class RoleScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('assets/hector_icon.png',
+              SvgPicture.asset('assets/hector_logo.svg',
                   height: 120,
-                  errorBuilder: (_, __, ___) => const SizedBox.shrink()),
+                  placeholderBuilder: (_) => const SizedBox.shrink()),
               const SizedBox(height: 16),
               Text(name,
                   style: const TextStyle(

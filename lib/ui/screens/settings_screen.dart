@@ -1,134 +1,173 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import '../../providers/premium_provider.dart';
-import 'premium_screen.dart';
-import '../widgets/primary_button.dart';
+import '../../providers/locale_provider.dart';
+import '../../providers/settings_provider.dart';
+import '../../utils/app_localizations.dart';
+import '../../utils/app_colors.dart';
+import 'tournament_screen.dart';
+import 'player_packs_screen.dart';
+import 'achievements_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
 
+  @override
+  Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
+    final settingsProvider = Provider.of<SettingsProvider>(context);
+
+    return Scaffold(
+      backgroundColor: AppColors.backgroundDeep,
+      appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.fromLTRB(
+          16.0,
+          16.0,
+          16.0,
+          16.0 + MediaQuery.of(context).padding.bottom,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _sectionCard(
+              child: SwitchListTile(
+                title: Text(loc.locale.languageCode == 'es'
+                    ? 'Idioma: Español'
+                    : 'Language: English'),
+                subtitle: Text(loc.locale.languageCode == 'es'
+                    ? 'Cambiar a inglés'
+                    : 'Switch to Spanish'),
+                value: loc.locale.languageCode == 'es',
+                onChanged: (bool value) {
+                  final newLocale = value
+                      ? const Locale('es', 'ES')
+                      : const Locale('en', 'US');
+                  Provider.of<LocaleProvider>(context, listen: false)
+                      .setLocale(newLocale);
+                },
+              ),
+            ),
+            const SizedBox(height: 12),
+            
+            // Sonidos
+            _sectionCard(
+              child: SwitchListTile(
+                title: Text(
+                  loc.locale.languageCode == 'es' ? 'Efectos de sonido' : 'Sound Effects',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                subtitle: Text(
+                  loc.locale.languageCode == 'es'
+                      ? 'Activar/desactivar sonidos'
+                      : 'Enable/disable sounds',
+                ),
+                value: settingsProvider.soundsEnabled,
+                onChanged: (value) {
+                  settingsProvider.setSoundsEnabled(value);
+                },
+              ),
+            ),
+            const SizedBox(height: 12),
+            
+            // Torneos
+            _sectionCard(
+              child: ListTile(
+                leading: const CircleAvatar(child: Icon(Icons.emoji_events)),
+                title: Text(
+                  loc.locale.languageCode == 'es' ? 'Torneos' : 'Tournaments',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                subtitle: Text(
+                  loc.locale.languageCode == 'es'
+                      ? 'Gestiona y juega torneos'
+                      : 'Manage and play tournaments',
+                ),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const TournamentScreen()),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 12),
+            
+            // Logros
+            _sectionCard(
+              child: ListTile(
+                leading: const CircleAvatar(child: Icon(Icons.military_tech)),
+                title: Text(
+                  loc.locale.languageCode == 'es' ? 'Logros' : 'Achievements',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                subtitle: Text(
+                  loc.locale.languageCode == 'es'
+                      ? 'Ver logros desbloqueados'
+                      : 'View unlocked achievements',
+                ),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const AchievementsScreen()),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 12),
+            
+            // Packs de jugadores
+            _sectionCard(
+              child: ListTile(
+                leading: SizedBox(
+                  width: 40,
+                  height: 40,
+                  child: SvgPicture.asset(
+                    'assets/hector_logo.svg',
+                    fit: BoxFit.contain,
+                    placeholderBuilder: (_) => const Icon(Icons.sports_soccer, color: Colors.white),
+                  ),
+                ),
+                title: Text(
+                  loc.locale.languageCode == 'es'
+                      ? 'Packs de Jugadores'
+                      : 'Player Packs',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                subtitle: Text(
+                  loc.locale.languageCode == 'es'
+                      ? 'Ver packs disponibles'
+                      : 'View available packs',
+                ),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const PlayerPacksScreen()),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 12),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _sectionCard({required Widget child}) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: const Color(0xFF1E1A29),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white10),
+        color: AppColors.backgroundCard,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.border),
       ),
       child: child,
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final isPremium = Provider.of<PremiumProvider>(context).isPremium;
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Configuración'),
-        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => Navigator.pop(context)),
-      ),
-      body: ListView(
-        children: [
-          const SizedBox(height: 12),
-          _sectionCard(
-            child: ListTile(
-              leading: const CircleAvatar(child: Icon(Icons.language)),
-              title: const Text('Idioma', style: TextStyle(fontWeight: FontWeight.bold)),
-              subtitle: const Text('Español'),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () {},
-            ),
-          ),
-          _sectionCard(
-            child: ListTile(
-              leading: const CircleAvatar(child: Icon(Icons.help_outline)),
-              title: const Text('Cómo jugar', style: TextStyle(fontWeight: FontWeight.bold)),
-              subtitle: const Text('Aprender las reglas'),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () {},
-            ),
-          ),
-          _sectionCard(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    const CircleAvatar(child: Icon(Icons.upgrade)),
-                    const SizedBox(width: 12),
-                    const Expanded(child: Text('Actualizar a Premium', style: TextStyle(fontWeight: FontWeight.bold))),
-                    ElevatedButton(
-                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PremiumScreen())),
-                      child: const Text('Actualizar'),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                const Padding(
-                  padding: EdgeInsets.only(left: 56.0),
-                  child: Text('Desbloquear todas las funciones y quitar anuncios.'),
-                ),
-              ],
-            ),
-          ),
-          _sectionCard(
-            child: ListTile(
-              leading: const CircleAvatar(child: Icon(Icons.star_border)),
-              title: const Text('Calificar App', style: TextStyle(fontWeight: FontWeight.bold)),
-              subtitle: const Text('¿Te encanta el juego? Deja una reseña'),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () {},
-            ),
-          ),
-          _sectionCard(
-            child: ListTile(
-              leading: const CircleAvatar(child: Icon(Icons.feedback_outlined)),
-              title: const Text('Enviar Comentarios', style: TextStyle(fontWeight: FontWeight.bold)),
-              subtitle: const Text('Comparte ideas para mejoras'),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () {},
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
-            child: Text('Otras aplicaciones', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          ),
-          _sectionCard(
-            child: ListTile(
-              leading: Image.asset('assets/hector_icon.png', width: 48, height: 48, errorBuilder: (_, __, ___) => const Icon(Icons.apps)),
-              title: const Text('Fiesta de Charadas', style: TextStyle(fontWeight: FontWeight.bold)),
-              subtitle: Row(children: const [Icon(Icons.star, size: 14), SizedBox(width: 6), Text('4.8  NUEVO')]),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () {},
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
-            child: Text('Información de la App', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          ),
-          _sectionCard(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                ListTile(
-                  leading: CircleAvatar(child: Icon(Icons.info_outline)),
-                  title: Text('Versión de la App'),
-                  subtitle: Text('1.0.0 (1)'),
-                ),
-                ListTile(
-                  leading: CircleAvatar(child: Icon(Icons.person_outline)),
-                  title: Text('ID de Cliente'),
-                  subtitle: Text('RCAnonymousID:xxxxxxxxxxxxxxxxxxxxxxxx'),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 24),
-        ],
-      ),
-    );
-  }
 }
 
 

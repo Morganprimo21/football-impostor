@@ -3,11 +3,22 @@ import 'package:provider/provider.dart';
 import '../../providers/game_provider.dart';
 import '../../providers/premium_provider.dart';
 import '../../data/models/player_role.dart';
+import '../../utils/app_localizations.dart';
+import '../../utils/app_colors.dart';
+import '../../utils/page_transitions.dart';
+import '../../services/sound_service.dart';
 import '../widgets/ad_banner_widget.dart';
+import '../widgets/background_with_logo.dart';
+import '../widgets/vector_logo.dart';
 import 'clue_instructions_screen.dart';
 
 class LobbyScreen extends StatefulWidget {
-  const LobbyScreen({Key? key}) : super(key: key);
+  final bool isQuickGame;
+  
+  const LobbyScreen({
+    Key? key,
+    this.isQuickGame = true, // Por defecto es partida rápida
+  }) : super(key: key);
 
   @override
   State<LobbyScreen> createState() => _LobbyScreenState();
@@ -29,11 +40,11 @@ class _LobbyScreenState extends State<LobbyScreen> {
 
         return StatefulBuilder(builder: (context, setStateDialog) {
           return AlertDialog(
-            backgroundColor: const Color(0xFF2C2C2C),
+            backgroundColor: const Color(0xFF2D4A3E),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
-                side: BorderSide(
-                    color: Theme.of(context).primaryColor, width: 2)),
+                side: const BorderSide(
+                    color: Color(0xFF00A86B), width: 2)),
             title: Text(
               isRevealed ? 'TU MISIÓN' : 'IDENTIFICACIÓN',
               textAlign: TextAlign.center,
@@ -52,7 +63,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                   const SizedBox(height: 20),
                   Text('¿Eres $playerName?',
                       style:
-                          const TextStyle(fontSize: 18, color: Colors.white70)),
+                          const TextStyle(fontSize: 16, color: Colors.white70)),
                   const SizedBox(height: 10),
                   const Text(
                       'Confirma tu identidad para ver tu información secreta.',
@@ -68,35 +79,34 @@ class _LobbyScreenState extends State<LobbyScreen> {
                     const Text('ERES EL IMPOSTOR',
                         style: TextStyle(
                             color: Colors.redAccent,
-                            fontSize: 22,
+                            fontSize: 19,
                             fontWeight: FontWeight.w900)),
                     const SizedBox(height: 15),
                     const Text(
-                        'No conoces al jugador secreto.\nEscucha a los demás y finge saber de quién hablan.',
+                        'No conoces al jugador.\nEscucha a los demás y finge saber de quién hablan.',
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white70, fontSize: 16)),
+                        style: TextStyle(color: Colors.white70, fontSize: 14)),
                   ] else ...[
                     // CASO INOCENTE / INFORMADO
-                    const Icon(Icons.sports_soccer,
-                        size: 80, color: Colors.blueAccent),
+                    const CircularVectorLogo(size: 100),
                     const SizedBox(height: 20),
                     const Text('AGENTE INOCENTE',
                         style: TextStyle(
-                            color: Colors.blueAccent,
-                            fontSize: 18,
+                            color: Colors.white,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold)),
                     const SizedBox(height: 15),
-                    const Text('El jugador secreto es:',
+                    const Text('El jugador es:',
                         style: TextStyle(color: Colors.white54)),
                     const SizedBox(height: 8),
                     Container(
                       width: double.infinity,
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: Colors.blueAccent.withAlpha(51),
+                        color: Colors.white.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(12),
                         border:
-                            Border.all(color: Colors.blueAccent.withAlpha(128)),
+                            Border.all(color: Colors.white.withOpacity(0.3)),
                       ),
                       child: Column(
                         children: [
@@ -104,25 +114,12 @@ class _LobbyScreenState extends State<LobbyScreen> {
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                   color: Colors.white,
-                                  fontSize: 24,
+                                  fontSize: 28,
                                   fontWeight: FontWeight.bold)),
-                          Text(secretPlayer?.club ?? '',
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  color: Colors.white70, fontSize: 14)),
                         ],
                       ),
                     ),
                     const SizedBox(height: 10),
-                    if (role == PlayerRole.informed)
-                      const Text(
-                        'INFO EXTRA: Como informado, intenta guiar a los demás sin que el impostor te descubra.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.orangeAccent,
-                            fontSize: 12,
-                            fontStyle: FontStyle.italic),
-                      ),
                   ],
                 ],
               ],
@@ -132,7 +129,10 @@ class _LobbyScreenState extends State<LobbyScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () => setStateDialog(() => isRevealed = true),
+                    onPressed: () {
+                      SoundService().playRoleReveal();
+                      setStateDialog(() => isRevealed = true);
+                    },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.grey[800]),
                     child: const Text('VER ROL',
@@ -144,6 +144,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
+                      SoundService().playButtonSuccess();
                       setState(() => _readyPlayers.add(playerName));
                       Navigator.pop(dialogContext);
                     },
@@ -159,25 +160,31 @@ class _LobbyScreenState extends State<LobbyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final gp = Provider.of<GameProvider>(context);
-    final isPremium = Provider.of<PremiumProvider>(context).isPremium;
+    final loc = AppLocalizations.of(context);
+    // Optimizar: usar watch solo para GameProvider que cambia frecuentemente
+    final gp = context.watch<GameProvider>();
+    // Usar read para valores que no cambian durante el build
+    final isPremium = context.read<PremiumProvider>().isPremium;
     final allReady = _readyPlayers.length == gp.playerNames.length;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SALA DE REUNIÓN'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () => Navigator.pop(context)),
       ),
-      body: Column(
-        children: [
-          const Padding(
-            padding: EdgeInsets.all(16.0),
+      backgroundColor: Colors.transparent,
+      body: BackgroundWithLogo(
+        child: Column(
+          children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Text(
-              'Toca tu tarjeta para recibir tu identidad y el jugador secreto.',
+              loc.text('lobby_instruction'),
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.grey, fontSize: 16),
+              style: const TextStyle(color: Colors.grey, fontSize: 14),
             ),
           ),
           Expanded(
@@ -190,19 +197,21 @@ class _LobbyScreenState extends State<LobbyScreen> {
                 mainAxisSpacing: 12,
               ),
               itemCount: gp.playerNames.length,
+              // Optimizar con keys y RepaintBoundary
               itemBuilder: (context, index) {
                 final name = gp.playerNames[index];
                 final isReady = _readyPlayers.contains(name);
-
-                return GestureDetector(
-                  onTap:
-                      isReady ? null : () => _showRoleDialog(context, name, gp),
+                
+                return RepaintBoundary(
+                  key: ValueKey('player_card_$name'),
+                  child: GestureDetector(
+                  onTap: isReady ? null : () => _showRoleDialog(context, name, gp),
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 300),
                     decoration: BoxDecoration(
                       color: isReady
-                          ? const Color(0xFF1B5E20)
-                          : const Color(0xFF2C2C2C),
+                          ? AppColors.successDark.withOpacity(0.3)
+                          : AppColors.backgroundCard,
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(
                         color: isReady
@@ -250,15 +259,17 @@ class _LobbyScreenState extends State<LobbyScreen> {
                       ],
                     ),
                   ),
+                ),
                 );
               },
             ),
           ),
           Container(
             padding: const EdgeInsets.all(20),
-            decoration: const BoxDecoration(
-              color: Color(0xFF1E1E1E),
-              borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+            decoration: BoxDecoration(
+              color: AppColors.backgroundSurface,
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+              border: Border(top: BorderSide(color: AppColors.border, width: 1)),
             ),
             child: Column(
               children: [
@@ -268,14 +279,14 @@ class _LobbyScreenState extends State<LobbyScreen> {
                   child: ElevatedButton(
                     onPressed: allReady
                         ? () {
-                            final gp = Provider.of<GameProvider>(context,
-                                listen: false);
+                            // Usar read en lugar de Provider.of con listen: false
+                            final gp = context.read<GameProvider>();
                             Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(
-                                builder: (_) => ChangeNotifierProvider.value(
+                              PageTransitions.scaleWithFade(
+                                ChangeNotifierProvider.value(
                                   value: gp,
-                                  child: const ClueInstructionsScreen(),
+                                  child: ClueInstructionsScreen(isQuickGame: widget.isQuickGame),
                                 ),
                               ),
                             );
@@ -289,7 +300,11 @@ class _LobbyScreenState extends State<LobbyScreen> {
                       foregroundColor: Colors.white,
                     ),
                     child: Text(
-                      allReady ? 'INICIAR MISIÓN' : 'ESPERANDO CONFIRMACIÓN...',
+                      allReady
+                          ? (loc.locale.languageCode == 'es' 
+                              ? 'INICIAR PARTIDA' 
+                              : 'START GAME')
+                          : loc.text('lobby_waiting'),
                       style: TextStyle(
                           fontSize: 16,
                           letterSpacing: 1,
@@ -303,6 +318,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
             ),
           ),
         ],
+        ),
       ),
     );
   }
