@@ -361,11 +361,11 @@ class _RevealScreenState extends State<RevealScreen>
                   ),
                   const SizedBox(height: 16),
                   _buildSummaryRow(
-                    loc.locale.languageCode == 'es' ? 'Jugadores:' : 'Players:',
+                    loc.text('setup_players'),
                     '${gp.playerNames.length}',
                   ),
                   _buildSummaryRow(
-                    loc.locale.languageCode == 'es' ? 'Impostores:' : 'Impostors:',
+                    loc.text('setup_impostors'),
                     '${impostors.length}',
                   ),
                   _buildSummaryRow(
@@ -411,9 +411,7 @@ class _RevealScreenState extends State<RevealScreen>
                     elevation: 8,
                   ),
                   label: Text(
-                    loc.locale.languageCode == 'es'
-                        ? 'SELECCIONAR GANADOR'
-                        : 'SELECT WINNER',
+                    loc.text('reveal_select_winner'),
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -441,9 +439,7 @@ class _RevealScreenState extends State<RevealScreen>
                   },
                   icon: const Icon(Icons.share, size: 24),
                   label: Text(
-                    loc.locale.languageCode == 'es'
-                        ? 'COMPARTIR RESULTADO'
-                        : 'SHARE RESULT',
+                    loc.text('reveal_share_result'),
                     style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
@@ -490,12 +486,8 @@ class _RevealScreenState extends State<RevealScreen>
                   ),
                   label: Text(
                     _tournamentRoundSaved
-                        ? (loc.locale.languageCode == 'es'
-                            ? 'VER TORNEO'
-                            : 'VIEW TOURNAMENT')
-                        : (loc.locale.languageCode == 'es'
-                            ? 'PRIMERO SELECCIONA GANADOR ↑'
-                            : 'FIRST SELECT WINNER ↑'),
+                        ? loc.text('reveal_view_tournament')
+                        : loc.text('reveal_select_winner_first'),
                     style: TextStyle(
                       fontSize: _tournamentRoundSaved ? 15 : 13,
                       fontWeight: FontWeight.bold,
@@ -532,9 +524,7 @@ class _RevealScreenState extends State<RevealScreen>
                     elevation: 8,
                   ),
                   label: Text(
-                    loc.locale.languageCode == 'es'
-                        ? 'VER PODIO FINAL'
-                        : 'VIEW FINAL PODIUM',
+                    loc.text('reveal_view_podium'),
                     style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,

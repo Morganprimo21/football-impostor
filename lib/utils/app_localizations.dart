@@ -68,6 +68,38 @@ class AppLocalizations {
       'es': 'Se requieren al menos 3 jugadores',
       'en': 'At least 3 players required',
     },
+    'home_error_unique_names': {
+      'es': 'Los nombres deben ser únicos',
+      'en': 'Names must be unique',
+    },
+    'tournament_error_start': {
+      'es': 'Error al iniciar torneo',
+      'en': 'Error starting tournament',
+    },
+    'setup_league_selected': {
+      'es': 'Liga seleccionada',
+      'en': 'Selected league',
+    },
+    'setup_change': {
+      'es': 'Cambiar',
+      'en': 'Change',
+    },
+    'setup_players': {
+      'es': 'Jugadores:',
+      'en': 'Players:',
+    },
+    'setup_impostors': {
+      'es': 'Impostores:',
+      'en': 'Impostors:',
+    },
+    'setup_player_names': {
+      'es': 'Nombres de jugadores',
+      'en': 'Player names',
+    },
+    'setup_default_player': {
+      'es': 'Jugador',
+      'en': 'Player',
+    },
     'home_start_cta': {
       'es': 'INICIAR PARTIDA',
       'en': 'START GAME',
@@ -206,6 +238,42 @@ class AppLocalizations {
       'es': 'SALA DE REUNIÓN',
       'en': 'BRIEFING ROOM',
     },
+    'lobby_are_you': {
+      'es': '¿Eres',
+      'en': 'Are you',
+    },
+    'lobby_impostor': {
+      'es': 'ERES EL IMPOSTOR',
+      'en': 'YOU ARE THE IMPOSTOR',
+    },
+    'lobby_innocent_agent': {
+      'es': 'AGENTE INOCENTE',
+      'en': 'INNOCENT AGENT',
+    },
+    'lobby_no_know_player': {
+      'es': 'No conoces al jugador.\nEscucha a los demás y finge saber de quién hablan.',
+      'en': 'You don\'t know the player.\nListen to others and pretend you know who they\'re talking about.',
+    },
+    'lobby_the_player_is': {
+      'es': 'El jugador es:',
+      'en': 'The player is:',
+    },
+    'lobby_confirm_identity': {
+      'es': 'Confirma tu identidad para ver tu información secreta.',
+      'en': 'Confirm your identity to see your secret information.',
+    },
+    'lobby_see_role': {
+      'es': 'VER ROL',
+      'en': 'SEE ROLE',
+    },
+    'lobby_understood': {
+      'es': 'ENTENDIDO',
+      'en': 'UNDERSTOOD',
+    },
+    'lobby_confirmed': {
+      'es': 'CONFIRMADO',
+      'en': 'CONFIRMED',
+    },
     'lobby_instruction': {
       'es': 'Toca tu tarjeta para recibir tu identidad y el jugador.',
       'en': 'Tap your card to see your role and the player.',
@@ -215,8 +283,20 @@ class AppLocalizations {
       'en': 'WAITING FOR CONFIRMATION...',
     },
     'lobby_start': {
-      'es': 'INICIAR MISIÓN',
-      'en': 'START MISSION',
+      'es': 'INICIAR PARTIDA',
+      'en': 'START GAME',
+    },
+    'tournament_start': {
+      'es': 'INICIAR TORNEO',
+      'en': 'START TOURNAMENT',
+    },
+    'tournament_rounds': {
+      'es': 'Número de rondas:',
+      'en': 'Number of rounds:',
+    },
+    'tournament_best_of': {
+      'es': 'Best of',
+      'en': 'Best of',
     },
     'clue_title': {
       'es': 'FASE DE DISCUSIÓN',
@@ -273,6 +353,26 @@ class AppLocalizations {
     'reveal_new_game': {
       'es': 'Nueva partida',
       'en': 'New game',
+    },
+    'reveal_select_winner': {
+      'es': 'SELECCIONAR GANADOR',
+      'en': 'SELECT WINNER',
+    },
+    'reveal_share_result': {
+      'es': 'COMPARTIR RESULTADO',
+      'en': 'SHARE RESULT',
+    },
+    'reveal_view_tournament': {
+      'es': 'VER TORNEO',
+      'en': 'VIEW TOURNAMENT',
+    },
+    'reveal_select_winner_first': {
+      'es': 'PRIMERO SELECCIONA GANADOR ↑',
+      'en': 'FIRST SELECT WINNER ↑',
+    },
+    'reveal_view_podium': {
+      'es': 'VER PODIO FINAL',
+      'en': 'VIEW FINAL PODIUM',
     },
     'reveal_hint': {
       'es': 'Pulsa \"Nueva partida\" para reiniciar',

@@ -111,9 +111,9 @@ class TournamentRoundResultScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          'Jugadores:',
-                          style: TextStyle(
+                        Text(
+                          AppLocalizations.of(context).text('setup_players'),
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 15,
                             fontWeight: FontWeight.w500,
@@ -133,9 +133,9 @@ class TournamentRoundResultScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          'Impostores:',
-                          style: TextStyle(
+                        Text(
+                          AppLocalizations.of(context).text('setup_impostors'),
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 15,
                             fontWeight: FontWeight.w500,

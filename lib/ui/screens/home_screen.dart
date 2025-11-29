@@ -109,9 +109,9 @@ class HomeScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 60),
 
-                    // Botón COMENZAR (verde)
+                    // Botón PARTIDA RÁPIDA (verde)
                     _MenuButton(
-                      label: 'COMENZAR',
+                      label: 'PARTIDA RÁPIDA',
                       icon: Icons.play_arrow,
                       backgroundColor: const Color(0xFF00A86B),
                       onPressed: () {

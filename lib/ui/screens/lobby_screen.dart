@@ -61,14 +61,14 @@ class _LobbyScreenState extends State<LobbyScreen> {
                       size: 80,
                       color: Theme.of(context).primaryColor.withAlpha(128)),
                   const SizedBox(height: 20),
-                  Text('¿Eres $playerName?',
+                  Text('${loc.text('lobby_are_you')} $playerName?',
                       style:
                           const TextStyle(fontSize: 16, color: Colors.white70)),
                   const SizedBox(height: 10),
-                  const Text(
-                      'Confirma tu identidad para ver tu información secreta.',
+                  Text(
+                      loc.text('lobby_confirm_identity'),
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.grey)),
+                      style: const TextStyle(color: Colors.grey)),
                 ] else ...[
                   // --- LÓGICA DE VISUALIZACIÓN DE ROLES ---
                   if (role == PlayerRole.impostor) ...[
@@ -76,28 +76,28 @@ class _LobbyScreenState extends State<LobbyScreen> {
                     const Icon(Icons.warning_amber_rounded,
                         size: 80, color: Colors.redAccent),
                     const SizedBox(height: 20),
-                    const Text('ERES EL IMPOSTOR',
-                        style: TextStyle(
+                    Text(loc.text('lobby_impostor'),
+                        style: const TextStyle(
                             color: Colors.redAccent,
                             fontSize: 19,
                             fontWeight: FontWeight.w900)),
                     const SizedBox(height: 15),
-                    const Text(
-                        'No conoces al jugador.\nEscucha a los demás y finge saber de quién hablan.',
+                    Text(
+                        loc.text('lobby_no_know_player'),
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white70, fontSize: 14)),
+                        style: const TextStyle(color: Colors.white70, fontSize: 14)),
                   ] else ...[
                     // CASO INOCENTE / INFORMADO
                     const CircularVectorLogo(size: 100),
                     const SizedBox(height: 20),
-                    const Text('AGENTE INOCENTE',
-                        style: TextStyle(
+                    Text(loc.text('lobby_innocent_agent'),
+                        style: const TextStyle(
                             color: Colors.white,
                             fontSize: 16,
                             fontWeight: FontWeight.bold)),
                     const SizedBox(height: 15),
-                    const Text('El jugador es:',
-                        style: TextStyle(color: Colors.white54)),
+                    Text('${loc.text('lobby_the_player_is')}',
+                        style: const TextStyle(color: Colors.white54)),
                     const SizedBox(height: 8),
                     Container(
                       width: double.infinity,
@@ -135,8 +135,8 @@ class _LobbyScreenState extends State<LobbyScreen> {
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.grey[800]),
-                    child: const Text('VER ROL',
-                        style: TextStyle(color: Colors.white)),
+                    child: Text(loc.text('lobby_see_role'),
+                        style: const TextStyle(color: Colors.white)),
                   ),
                 )
               else
@@ -148,7 +148,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                       setState(() => _readyPlayers.add(playerName));
                       Navigator.pop(dialogContext);
                     },
-                    child: const Text('ENTENDIDO'),
+                    child: Text(loc.text('lobby_understood')),
                   ),
                 ),
             ],
@@ -251,8 +251,8 @@ class _LobbyScreenState extends State<LobbyScreen> {
                           ),
                         ),
                         if (isReady)
-                          const Text('CONFIRMADO',
-                              style: TextStyle(
+                          Text(loc.text('lobby_confirmed'),
+                              style: const TextStyle(
                                   color: Colors.white54,
                                   fontSize: 10,
                                   letterSpacing: 1.5)),
@@ -301,9 +301,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                     ),
                     child: Text(
                       allReady
-                          ? (loc.locale.languageCode == 'es' 
-                              ? 'INICIAR PARTIDA' 
-                              : 'START GAME')
+                          ? loc.text('lobby_start')
                           : loc.text('lobby_waiting'),
                       style: TextStyle(
                           fontSize: 16,

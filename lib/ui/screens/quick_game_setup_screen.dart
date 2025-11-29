@@ -32,9 +32,10 @@ class _QuickGameSetupScreenState extends State<QuickGameSetupScreen> {
   }
 
   void _updateControllers() {
+    final loc = AppLocalizations.of(context);
     while (_controllers.length < _playerCount) {
       final playerNumber = _controllers.length + 1;
-      _controllers.add(TextEditingController(text: 'Jugador $playerNumber'));
+      _controllers.add(TextEditingController(text: '${loc.text('setup_default_player')} $playerNumber'));
     }
     while (_controllers.length > _playerCount) {
       _controllers.removeLast().dispose();
@@ -149,9 +150,9 @@ class _QuickGameSetupScreenState extends State<QuickGameSetupScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                'Liga seleccionada',
-                                style: TextStyle(
+                              Text(
+                                loc.text('setup_league_selected'),
+                                style: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -178,7 +179,7 @@ class _QuickGameSetupScreenState extends State<QuickGameSetupScreen> {
                               MaterialPageRoute(builder: (_) => const PlayerPacksScreen()),
                             );
                           },
-                          child: const Text('Cambiar'),
+                          child: Text(loc.text('setup_change')),
                         ),
                       ],
                     ),
@@ -197,10 +198,10 @@ class _QuickGameSetupScreenState extends State<QuickGameSetupScreen> {
                       children: [
                         const Icon(Icons.people, color: Colors.white, size: 28),
                         const SizedBox(width: 16),
-                        const Expanded(
+                        Expanded(
                           child: Text(
-                            'Jugadores:',
-                            style: TextStyle(
+                            loc.text('setup_players'),
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                             ),
@@ -259,10 +260,10 @@ class _QuickGameSetupScreenState extends State<QuickGameSetupScreen> {
                       children: [
                         const Icon(Icons.person_off, color: Colors.white, size: 28),
                         const SizedBox(width: 16),
-                        const Expanded(
+                        Expanded(
                           child: Text(
-                            'Impostores:',
-                            style: TextStyle(
+                            loc.text('setup_impostors'),
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                             ),
@@ -308,9 +309,9 @@ class _QuickGameSetupScreenState extends State<QuickGameSetupScreen> {
                     children: [
                       const Icon(Icons.edit, color: Colors.white, size: 24),
                       const SizedBox(width: 12),
-                      const Text(
-                        'Nombres de jugadores',
-                        style: TextStyle(
+                      Text(
+                        loc.text('setup_player_names'),
+                        style: const TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
                           letterSpacing: 0.5,
@@ -372,7 +373,7 @@ class _QuickGameSetupScreenState extends State<QuickGameSetupScreen> {
                   SizedBox(
                     height: 56,
                     child: PrimaryButton(
-                      label: 'INICIAR PARTIDA',
+                      label: loc.text('lobby_start'),
                       onPressed: () async {
                         final premiumProvider = Provider.of<PremiumProvider>(context, listen: false);
                         final names = _controllers
@@ -393,8 +394,8 @@ class _QuickGameSetupScreenState extends State<QuickGameSetupScreen> {
 
                         if (!Validators.areNamesUnique(names)) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Los nombres deben ser únicos'),
+                            SnackBar(
+                              content: Text(loc.text('home_error_unique_names')),
                               backgroundColor: Colors.red,
                             ),
                           );
