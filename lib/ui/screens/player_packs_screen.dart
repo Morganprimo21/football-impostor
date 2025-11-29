@@ -48,18 +48,13 @@ class PlayerPacksScreen extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Container(
+                SizedBox(
                   width: 60,
                   height: 60,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFE8E8E8),
-                    shape: BoxShape.circle,
-                  ),
-                  padding: const EdgeInsets.all(10),
                   child: SvgPicture.asset(
                     'assets/hector_logo.svg',
                     fit: BoxFit.contain,
-                    placeholderBuilder: (_) => const Icon(Icons.sports_soccer, size: 40, color: Color(0xFF2D4A3E)),
+                    placeholderBuilder: (_) => const Icon(Icons.sports_soccer, size: 40, color: Colors.white),
                   ),
                 ),
                 const SizedBox(height: 12),
