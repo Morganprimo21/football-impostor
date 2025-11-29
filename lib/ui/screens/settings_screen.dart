@@ -39,12 +39,31 @@ class SettingsScreen extends StatelessWidget {
                     ? 'Cambiar a inglés'
                     : 'Switch to Spanish'),
                 value: loc.locale.languageCode == 'es',
-                onChanged: (bool value) {
+                onChanged: (bool value) async {
                   final newLocale = value
                       ? const Locale('es', 'ES')
                       : const Locale('en', 'US');
-                  Provider.of<LocaleProvider>(context, listen: false)
+                  
+                  await Provider.of<LocaleProvider>(context, listen: false)
                       .setLocale(newLocale);
+                  
+                  // Volver a la home para ver los cambios
+                  if (context.mounted) {
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    
+                    // Mostrar mensaje de confirmación
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          value 
+                            ? '✓ Idioma cambiado a Español'
+                            : '✓ Language changed to English'
+                        ),
+                        duration: const Duration(seconds: 2),
+                        backgroundColor: AppColors.success,
+                      ),
+                    );
+                  }
                 },
               ),
             ),

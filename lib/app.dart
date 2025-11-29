@@ -29,6 +29,7 @@ class _MyAppWrapperState extends State<MyAppWrapper> {
     final localeProvider = Provider.of<LocaleProvider>(context);
 
     return MaterialApp(
+      key: ValueKey(localeProvider.locale.languageCode),
       debugShowCheckedModeBanner: false,
       title: 'Football Impostor – Pass & Play',
       theme: ThemeData(
