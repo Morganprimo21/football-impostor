@@ -31,6 +31,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
       BuildContext context, String playerName, GameProvider gp) {
     final role = gp.roles[playerName];
     final secretPlayer = gp.assignedPlayers[playerName];
+    final loc = AppLocalizations.of(context);
 
     showDialog(
       context: context,
@@ -251,7 +252,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                           ),
                         ),
                         if (isReady)
-                          Text(loc.text('lobby_confirmed'),
+                          Text(AppLocalizations.of(context).text('lobby_confirmed'),
                               style: const TextStyle(
                                   color: Colors.white54,
                                   fontSize: 10,

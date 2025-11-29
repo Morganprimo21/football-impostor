@@ -35,10 +35,9 @@ class _TournamentSetupScreenState extends State<TournamentSetupScreen> {
   }
 
   void _updateControllers() {
-    final loc = AppLocalizations.of(context);
     while (_controllers.length < _playerCount) {
       final playerNumber = _controllers.length + 1;
-      _controllers.add(TextEditingController(text: '${loc.text('setup_default_player')} $playerNumber'));
+      _controllers.add(TextEditingController(text: 'Player $playerNumber'));
     }
     while (_controllers.length > _playerCount) {
       _controllers.removeLast().dispose();

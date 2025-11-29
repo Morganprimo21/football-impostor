@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../utils/app_colors.dart';
+import '../../utils/app_localizations.dart';
 
 /// Pantalla para seleccionar el ganador de una ronda de torneo
 class TournamentRoundResultScreen extends StatelessWidget {
