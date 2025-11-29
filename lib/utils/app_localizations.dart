@@ -132,6 +132,38 @@ class AppLocalizations {
       'es': 'IMPOSTOR GANÓ',
       'en': 'IMPOSTOR WON',
     },
+    'tournament_in_progress': {
+      'es': 'TORNEO EN CURSO',
+      'en': 'TOURNAMENT IN PROGRESS',
+    },
+    'tournament_finished': {
+      'es': '¡TORNEO FINALIZADO!',
+      'en': 'TOURNAMENT FINISHED!',
+    },
+    'tournament_best_of': {
+      'es': 'Best of',
+      'en': 'Best of',
+    },
+    'tournament_round': {
+      'es': 'Ronda',
+      'en': 'Round',
+    },
+    'tournament_classification': {
+      'es': 'CLASIFICACIÓN',
+      'en': 'STANDINGS',
+    },
+    'tournament_history': {
+      'es': 'HISTORIAL',
+      'en': 'HISTORY',
+    },
+    'tournament_impostor_label': {
+      'es': 'Impostor:',
+      'en': 'Impostor:',
+    },
+    'tournament_player_label': {
+      'es': 'Jugador:',
+      'en': 'Player:',
+    },
     'tournament_mode_subtitle': {
       'es': 'Compite en una serie de partidas',
       'en': 'Compete in a series of matches',
@@ -393,10 +425,6 @@ class AppLocalizations {
     'tournament_rounds': {
       'es': 'Número de rondas:',
       'en': 'Number of rounds:',
-    },
-    'tournament_best_of': {
-      'es': 'Best of',
-      'en': 'Best of',
     },
     'clue_title': {
       'es': 'FASE DE DISCUSIÓN',

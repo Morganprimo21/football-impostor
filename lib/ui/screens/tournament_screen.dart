@@ -5,6 +5,7 @@ import '../../providers/game_provider.dart';
 import '../../providers/premium_provider.dart';
 import '../../services/tournament_service.dart';
 import '../../utils/app_colors.dart';
+import '../../utils/app_localizations.dart';
 import 'home_screen.dart';
 import 'lobby_screen.dart';
 
@@ -174,6 +175,7 @@ class _TournamentScreenState extends State<TournamentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
     if (_isLoading) {
       return Scaffold(
         appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
@@ -224,7 +226,7 @@ class _TournamentScreenState extends State<TournamentScreen> {
               child: Column(
                 children: [
                   Text(
-                    isComplete ? '¡TORNEO FINALIZADO!' : 'TORNEO EN CURSO',
+                    isComplete ? loc.text('tournament_finished') : loc.text('tournament_in_progress'),
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -234,7 +236,7 @@ class _TournamentScreenState extends State<TournamentScreen> {
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    'Best of ${tournament.totalRounds}',
+                    '${loc.text('tournament_best_of')} ${tournament.totalRounds}',
                     style: const TextStyle(
                       fontSize: 15,
                       color: Colors.white70,
@@ -242,7 +244,7 @@ class _TournamentScreenState extends State<TournamentScreen> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Ronda ${tournament.currentRound} / ${tournament.totalRounds}',
+                    '${loc.text('tournament_round')} ${tournament.currentRound} / ${tournament.totalRounds}',
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
@@ -281,9 +283,9 @@ class _TournamentScreenState extends State<TournamentScreen> {
                     children: [
                       Icon(Icons.leaderboard, color: AppColors.accent, size: 28),
                       const SizedBox(width: 12),
-                          const Text(
-                        'CLASIFICACIÓN',
-                        style: TextStyle(
+                          Text(
+                        loc.text('tournament_classification'),
+                        style: const TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
                           letterSpacing: 1,
@@ -402,9 +404,9 @@ class _TournamentScreenState extends State<TournamentScreen> {
                       children: [
                         Icon(Icons.history, color: AppColors.secondary, size: 28),
                         const SizedBox(width: 12),
-                          const Text(
-                          'HISTORIAL',
-                          style: TextStyle(
+                          Text(
+                          loc.text('tournament_history'),
+                          style: const TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.bold,
                             letterSpacing: 1,
@@ -429,8 +431,8 @@ class _TournamentScreenState extends State<TournamentScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Ronda ${round.roundNumber}',
-                                  style: TextStyle(
+                                  '${loc.text('tournament_round')} ${round.roundNumber}',
+                                  style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                     color: AppColors.accent,
@@ -475,9 +477,9 @@ class _TournamentScreenState extends State<TournamentScreen> {
                                   size: 18,
                                 ),
                                 const SizedBox(width: 8),
-                                const Text(
-                                  'Impostor:',
-                                  style: TextStyle(
+                                Text(
+                                  loc.text('tournament_impostor_label'),
+                                  style: const TextStyle(
                                     color: Colors.white60,
                                     fontSize: 14,
                                   ),
@@ -504,9 +506,9 @@ class _TournamentScreenState extends State<TournamentScreen> {
                                   size: 18,
                                 ),
                                 const SizedBox(width: 8),
-                                const Text(
-                                  'Jugador:',
-                                  style: TextStyle(
+                                Text(
+                                  loc.text('tournament_player_label'),
+                                  style: const TextStyle(
                                     color: Colors.white60,
                                     fontSize: 14,
                                   ),
