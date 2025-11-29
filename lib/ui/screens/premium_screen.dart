@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../monetization/purchase_service.dart';
 import '../../providers/premium_provider.dart';
 import '../../utils/app_colors.dart';
+import '../../utils/app_localizations.dart';
 
 /// Pantalla para contratar Premium mensual (todas las ligas + sin anuncios).
 class PremiumScreen extends StatefulWidget {
@@ -36,13 +37,13 @@ class _PremiumScreenState extends State<PremiumScreen> {
         if (purchase.status == PurchaseStatus.pending) {
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Compra pendiente...')),
+              SnackBar(content: Text(AppLocalizations.of(context).text('premium_pending'))),
             );
           }
         } else if (purchase.status == PurchaseStatus.error) {
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('La compra ha fallado')),
+              SnackBar(content: Text(AppLocalizations.of(context).text('premium_failed'))),
             );
           }
         } else if (purchase.status == PurchaseStatus.purchased ||
@@ -65,9 +66,9 @@ class _PremiumScreenState extends State<PremiumScreen> {
   Future<void> _buy(BuildContext context) async {
     if (!_isStorePlatform) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(
-          'Las compras solo están disponibles en Android/iOS desde la tienda.',
+          AppLocalizations.of(context).text('premium_only_stores'),
         ),
       ));
       return;
@@ -86,6 +87,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
     final isPremium = Provider.of<PremiumProvider>(context).isPremium;
     return Scaffold(
       backgroundColor: AppColors.backgroundDeep,
@@ -162,9 +164,9 @@ class _PremiumScreenState extends State<PremiumScreen> {
                       color: Colors.black.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: const Text(
-                      '2,99 € al mes',
-                      style: TextStyle(
+                    child: Text(
+                      loc.text('premium_price'),
+                      style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -177,9 +179,9 @@ class _PremiumScreenState extends State<PremiumScreen> {
             const SizedBox(height: 32),
 
             // Benefits Section
-            const Text(
-              '¿QUÉ INCLUYE?',
-              style: TextStyle(
+            Text(
+              loc.text('premium_what_includes'),
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 1.5,
@@ -193,8 +195,8 @@ class _PremiumScreenState extends State<PremiumScreen> {
             _buildBenefitCard(
               icon: Icons.emoji_events,
               iconColor: AppColors.primary,
-              title: 'Todas las Ligas',
-              description: 'Premier League, LaLiga, Serie A, Bundesliga y Legends',
+              title: loc.text('premium_all_leagues'),
+              description: loc.text('premium_all_leagues_desc'),
               gradient: LinearGradient(
                 colors: [AppColors.primary.withOpacity(0.2), AppColors.primary.withOpacity(0.05)],
               ),
@@ -205,8 +207,8 @@ class _PremiumScreenState extends State<PremiumScreen> {
             _buildBenefitCard(
               icon: Icons.block,
               iconColor: AppColors.error,
-              title: 'Sin Anuncios',
-              description: 'Elimina todos los banners y pantallas publicitarias',
+              title: loc.text('premium_no_ads'),
+              description: loc.text('premium_no_ads_desc'),
               gradient: LinearGradient(
                 colors: [AppColors.error.withOpacity(0.2), AppColors.error.withOpacity(0.05)],
               ),
@@ -217,8 +219,8 @@ class _PremiumScreenState extends State<PremiumScreen> {
             _buildBenefitCard(
               icon: Icons.celebration,
               iconColor: AppColors.accent,
-              title: 'Ideal para Fiestas',
-              description: 'Juega torneos largos sin interrupciones',
+              title: loc.text('premium_ideal_parties'),
+              description: loc.text('premium_ideal_parties_desc'),
               gradient: LinearGradient(
                 colors: [AppColors.accent.withOpacity(0.2), AppColors.accent.withOpacity(0.05)],
               ),
@@ -229,8 +231,8 @@ class _PremiumScreenState extends State<PremiumScreen> {
             _buildBenefitCard(
               icon: Icons.verified_user,
               iconColor: AppColors.success,
-              title: 'Cancela Cuando Quieras',
-              description: 'Sin compromiso, cancela tu suscripción en cualquier momento',
+              title: loc.text('premium_cancel_anytime'),
+              description: loc.text('premium_cancel_anytime_desc'),
               gradient: LinearGradient(
                 colors: [AppColors.success.withOpacity(0.2), AppColors.success.withOpacity(0.05)],
               ),
@@ -279,16 +281,16 @@ class _PremiumScreenState extends State<PremiumScreen> {
                   ),
                   child: _loading
                       ? const CircularProgressIndicator(color: Colors.black)
-                      : const Row(
+                      : Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.star, size: 24),
-                            SizedBox(width: 8),
+                            const Icon(Icons.star, size: 24),
+                            const SizedBox(width: 8),
                             Flexible(
                               child: Text(
-                                'Activar Premium 2,99 €/mes',
+                                loc.text('premium_activate'),
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                   letterSpacing: 0.3,
@@ -311,9 +313,9 @@ class _PremiumScreenState extends State<PremiumScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   side: BorderSide(color: AppColors.primary, width: 2),
                 ),
-                child: const Text(
-                  'Restaurar compras',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                child: Text(
+                  loc.text('premium_restore'),
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
               ),
             ] else

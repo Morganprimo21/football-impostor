@@ -110,23 +110,23 @@ class _TournamentSetupScreenState extends State<TournamentSetupScreen> {
                           ),
                         ),
                         const SizedBox(width: 16),
-                        const Expanded(
+                        Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'MODO TORNEO',
-                                style: TextStyle(
+                                loc.text('tournament_mode_title'),
+                                style: const TextStyle(
                                   fontSize: 22,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                   letterSpacing: 1.2,
                                 ),
                               ),
-                              SizedBox(height: 4),
+                              const SizedBox(height: 4),
                               Text(
-                                'Compite en una serie de partidas',
-                                style: TextStyle(
+                                loc.text('tournament_mode_subtitle'),
+                                style: const TextStyle(
                                   fontSize: 14,
                                   color: Colors.white70,
                                 ),

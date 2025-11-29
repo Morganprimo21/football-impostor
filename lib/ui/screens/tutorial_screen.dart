@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/app_colors.dart';
+import '../../utils/app_localizations.dart';
 import '../../services/sound_service.dart';
 import 'home_screen.dart';
 
@@ -120,8 +121,8 @@ class _TutorialScreenState extends State<TutorialScreen> {
                   children: [
                     const SizedBox(width: 80),
                     Text(
-                      'CÓMO JUGAR',
-                      style: TextStyle(
+                      AppLocalizations.of(context).text('how_to_play_title'),
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: AppColors.primary,

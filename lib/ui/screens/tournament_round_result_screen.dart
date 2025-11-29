@@ -57,12 +57,12 @@ class TournamentRoundResultScreen extends StatelessWidget {
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(Icons.emoji_events, size: 40, color: Colors.white),
-                    SizedBox(width: 12),
+                  children: [
+                    const Icon(Icons.emoji_events, size: 40, color: Colors.white),
+                    const SizedBox(width: 12),
                     Text(
-                      'MODO TORNEO',
-                      style: TextStyle(
+                      AppLocalizations.of(context).text('tournament_mode_title'),
+                      style: const TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,

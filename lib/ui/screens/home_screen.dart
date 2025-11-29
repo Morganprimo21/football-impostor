@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/premium_provider.dart';
+import '../../utils/app_localizations.dart';
 import '../../utils/page_transitions.dart';
 import '../widgets/ad_banner_widget.dart';
 import '../widgets/vector_logo.dart';
@@ -15,6 +16,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
     final isPremium = Provider.of<PremiumProvider>(context).isPremium;
 
     return Scaffold(
@@ -111,7 +113,7 @@ class HomeScreen extends StatelessWidget {
 
                     // Botón PARTIDA RÁPIDA (verde)
                     _MenuButton(
-                      label: 'PARTIDA RÁPIDA',
+                      label: loc.text('home_quick_game_button'),
                       icon: Icons.play_arrow,
                       backgroundColor: const Color(0xFF00A86B),
                       onPressed: () {
@@ -125,7 +127,7 @@ class HomeScreen extends StatelessWidget {
 
                     // Botón TORNEO (amarillo)
                     _MenuButton(
-                      label: 'TORNEO',
+                      label: loc.text('home_tournament_button'),
                       icon: Icons.emoji_events,
                       backgroundColor: const Color(0xFFC9A021),
                       onPressed: () {
@@ -139,7 +141,7 @@ class HomeScreen extends StatelessWidget {
 
                     // Botón CÓMO JUGAR (morado)
                     _MenuButton(
-                      label: 'CÓMO JUGAR',
+                      label: loc.text('home_how_to_play_button'),
                       icon: Icons.help_outline,
                       backgroundColor: const Color(0xFF6B1FA8),
                       onPressed: () {

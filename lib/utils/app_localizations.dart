@@ -100,6 +100,98 @@ class AppLocalizations {
       'es': 'Jugador',
       'en': 'Player',
     },
+    'home_quick_game_button': {
+      'es': 'PARTIDA RÁPIDA',
+      'en': 'QUICK GAME',
+    },
+    'home_tournament_button': {
+      'es': 'TORNEO',
+      'en': 'TOURNAMENT',
+    },
+    'home_how_to_play_button': {
+      'es': 'CÓMO JUGAR',
+      'en': 'HOW TO PLAY',
+    },
+    'quick_game_title': {
+      'es': 'PARTIDA RÁPIDA',
+      'en': 'QUICK GAME',
+    },
+    'quick_game_subtitle': {
+      'es': 'Configura y empieza a jugar',
+      'en': 'Configure and start playing',
+    },
+    'tournament_mode_title': {
+      'es': 'MODO TORNEO',
+      'en': 'TOURNAMENT MODE',
+    },
+    'tournament_mode_subtitle': {
+      'es': 'Compite en una serie de partidas',
+      'en': 'Compete in a series of matches',
+    },
+    'how_to_play_title': {
+      'es': 'CÓMO JUGAR',
+      'en': 'HOW TO PLAY',
+    },
+    'premium_price': {
+      'es': '2,99 € al mes',
+      'en': '€2.99 per month',
+    },
+    'premium_what_includes': {
+      'es': '¿QUÉ INCLUYE?',
+      'en': 'WHAT\'S INCLUDED?',
+    },
+    'premium_all_leagues': {
+      'es': 'Todas las Ligas',
+      'en': 'All Leagues',
+    },
+    'premium_all_leagues_desc': {
+      'es': 'Premier League, LaLiga, Serie A, Bundesliga y Legends',
+      'en': 'Premier League, LaLiga, Serie A, Bundesliga and Legends',
+    },
+    'premium_no_ads': {
+      'es': 'Sin Anuncios',
+      'en': 'No Ads',
+    },
+    'premium_no_ads_desc': {
+      'es': 'Elimina todos los banners y pantallas publicitarias',
+      'en': 'Remove all banners and advertising screens',
+    },
+    'premium_ideal_parties': {
+      'es': 'Ideal para Fiestas',
+      'en': 'Perfect for Parties',
+    },
+    'premium_ideal_parties_desc': {
+      'es': 'Juega torneos largos sin interrupciones',
+      'en': 'Play long tournaments without interruptions',
+    },
+    'premium_cancel_anytime': {
+      'es': 'Cancela Cuando Quieras',
+      'en': 'Cancel Anytime',
+    },
+    'premium_cancel_anytime_desc': {
+      'es': 'Sin compromiso, cancela tu suscripción en cualquier momento',
+      'en': 'No commitment, cancel your subscription anytime',
+    },
+    'premium_activate': {
+      'es': 'Activar Premium 2,99 €/mes',
+      'en': 'Activate Premium €2.99/month',
+    },
+    'premium_restore': {
+      'es': 'Restaurar compras',
+      'en': 'Restore purchases',
+    },
+    'premium_pending': {
+      'es': 'Compra pendiente...',
+      'en': 'Purchase pending...',
+    },
+    'premium_failed': {
+      'es': 'La compra ha fallado',
+      'en': 'Purchase failed',
+    },
+    'premium_only_stores': {
+      'es': 'Las compras solo están disponibles en Android/iOS desde la tienda.',
+      'en': 'Purchases are only available on Android/iOS from the store.',
+    },
     'home_start_cta': {
       'es': 'INICIAR PARTIDA',
       'en': 'START GAME',
