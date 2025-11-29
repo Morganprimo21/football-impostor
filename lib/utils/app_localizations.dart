@@ -122,7 +122,15 @@ class AppLocalizations {
     },
     'tournament_mode_title': {
       'es': 'MODO TORNEO',
-      'en': 'TOURNAMENT MODE',
+      'en': 'TOURNAMENT',
+    },
+    'tournament_agents_won': {
+      'es': 'AGENTES GANARON',
+      'en': 'AGENTS WON',
+    },
+    'tournament_impostor_won': {
+      'es': 'IMPOSTOR GANÓ',
+      'en': 'IMPOSTOR WON',
     },
     'tournament_mode_subtitle': {
       'es': 'Compite en una serie de partidas',

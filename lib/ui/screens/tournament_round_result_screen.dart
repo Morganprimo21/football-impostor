@@ -189,7 +189,7 @@ class TournamentRoundResultScreen extends StatelessWidget {
               // Botón: Ganaron los AGENTES
               _buildWinnerButton(
                 context: context,
-                label: 'AGENTES GANARON',
+                label: AppLocalizations.of(context).text('tournament_agents_won'),
                 icon: Icons.shield,
                 gradient: LinearGradient(
                   colors: [AppColors.success, AppColors.success.withOpacity(0.7)],
@@ -205,7 +205,7 @@ class TournamentRoundResultScreen extends StatelessWidget {
               // Botón: Ganó el IMPOSTOR
               _buildWinnerButton(
                 context: context,
-                label: 'IMPOSTOR GANÓ',
+                label: AppLocalizations.of(context).text('tournament_impostor_won'),
                 icon: Icons.warning_amber_rounded,
                 gradient: LinearGradient(
                   colors: [AppColors.error, AppColors.error.withOpacity(0.7)],
